@@ -14,18 +14,18 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(path = "/{book_id}")
     public Book getBook(@PathVariable Long id){
         return bookService.getBook(id);
     }
 
     @GetMapping
-    public List<Book> getBooks(){
+    public List<Book> getAllBooks(){
         return bookService.getBooks();
     }
 
     @PostMapping
-    public Book saveBook(@RequestBody BookRequest bookRequest){
+    public Book addBook(@RequestBody BookRequest bookRequest){
         return bookService.saveBook(bookRequest);
     }
 
@@ -34,7 +34,7 @@ public class BookController {
         return bookService.updateBook(bookRequest);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(path = "/{book_id}")
     public void deleteBook(@PathVariable Long id){
         bookService.deleteBook(id);
     }
