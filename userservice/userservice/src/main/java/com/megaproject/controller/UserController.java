@@ -14,18 +14,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{id}")
-    public User getUser(@PathVariable Long id){
-        return userService.getUser(id);
-    }
-
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getAllUsers(){
         return userService.getUsers();
     }
 
+    @GetMapping(value = "/{user_id}")
+    public User getUser(@PathVariable(value = "user_id") Long id){
+        return userService.getUser(id);
+    }
+
     @PostMapping
-    public User saveUser(@RequestBody UserRequest userRequest){
+    public User addUser(@RequestBody UserRequest userRequest){
         return userService.saveUser(userRequest);
     }
 
@@ -34,8 +34,8 @@ public class UserController {
         return userService.updateUser(userRequest);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteUser(@PathVariable Long id){
+    @DeleteMapping(value = "/{user_id}")
+    public void deleteUser(@PathVariable(value = "user_id") Long id){
         userService.deleteUser(id);
     }
 }
