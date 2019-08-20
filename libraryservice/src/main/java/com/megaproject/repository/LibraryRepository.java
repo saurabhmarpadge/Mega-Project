@@ -1,6 +1,6 @@
-package megaproject.repository;
+package com.megaproject.repository;
 
-import megaproject.entity.Library;
+import com.megaproject.entity.Library;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

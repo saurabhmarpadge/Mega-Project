@@ -1,4 +1,4 @@
-package megaproject.config;
+package com.megaproject.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

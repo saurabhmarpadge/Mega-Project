@@ -1,7 +1,7 @@
-package megaproject.service;
+package com.megaproject.service;
 
-import megaproject.entity.Library;
-import megaproject.repository.LibraryRepository;
+import com.megaproject.entity.Library;
+import com.megaproject.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

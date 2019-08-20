@@ -1,4 +1,4 @@
-package megaproject.entity;
+package com.megaproject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
