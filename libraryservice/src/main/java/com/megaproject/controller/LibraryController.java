@@ -1,5 +1,6 @@
 package com.megaproject.controller;
 
+import com.megaproject.client.BookClient;
 import com.megaproject.model.Book;
 import com.megaproject.config.UrlHolder;
 import com.megaproject.model.User;
@@ -10,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +26,9 @@ public class LibraryController {
     @Autowired
     UrlHolder esbHolder;
 
+    @Autowired
+    BookClient bookClient;
+
 
     @GetMapping
     public User login(@PathVariable Long id){
@@ -33,12 +39,17 @@ public class LibraryController {
         return user;
     }
 
-    @GetMapping(value = "/books")
-    public Book getAllBooks(){
+    @GetMapping(value = "/books/books")
+    public List<Book> getAllBookss(){
         RestTemplate restTemplate = new RestTemplate();
-        Book book = restTemplate.getForObject(esbHolder.bookUrl, Book.class);
+        return restTemplate.exchange(esbHolder.bookUrl,  Book[].class).getBody();
 
-        return book;
+
+    }
+
+    @GetMapping(value = "/books")
+    public List<Book> getAllBooks(){
+        return bookClient.getAllBooks();
     }
 
     @GetMapping(value = "/books/{book_id}")
