@@ -29,4 +29,7 @@ public class Book {
     @Column(name="isbn")
     private Long isbn;
 
+    @Column(name="price")
+    private Double price;
+
 }

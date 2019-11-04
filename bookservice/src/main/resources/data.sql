@@ -1,1 +1,1 @@
-INSERT INTO book(book_id,book_name,author,isbn) VALUES (1,'Java','ME',10001);
+INSERT INTO book(book_id,book_name,author,isbn,price) VALUES (1,'Java','ME',10001,25.25);

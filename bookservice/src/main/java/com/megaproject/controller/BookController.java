@@ -3,7 +3,10 @@ package com.megaproject.controller;
 import com.megaproject.dto.BookRequest;
 import com.megaproject.entity.Book;
 import com.megaproject.service.BookService;
+import com.megaproject.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +18,27 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping(value =  "/{book_id}")
-    public Book getBook(@PathVariable(value = "book_id") Long id){
-        return bookService.getBook(id);
+    public ResponseEntity<Book> getBook(@PathVariable(value = "book_id") Long id){
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.getBook(id));
     }
 
     @GetMapping
-    public List<Book> getAllBooks(){
-        return bookService.getBooks();
+    public ResponseEntity<List<Book>> getAllBooks(){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getBooks());
     }
 
     @PostMapping
-    public Book addBook(@RequestBody BookRequest bookRequest){
-        return bookService.saveBook(bookRequest);
+    public ResponseEntity<Book> addBook(@RequestBody BookRequest bookRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.addBook(bookRequest));
     }
 
     @PutMapping
-    public Book updateBook(@RequestBody BookRequest bookRequest){
-        return bookService.updateBook(bookRequest);
+    public ResponseEntity<Book> updateBook(@RequestBody BookRequest bookRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.updateBook(bookRequest));
     }
 
     @DeleteMapping(value = "/{book_id}")
     public void deleteBook(@PathVariable(value = "book_id") Long id){
-        bookService.deleteBook(id);
+        bookService.removeBook(id);
     }
 }
