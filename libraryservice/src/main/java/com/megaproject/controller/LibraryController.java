@@ -1,102 +1,74 @@
 package com.megaproject.controller;
 
-import com.megaproject.model.Book;
 import com.megaproject.config.UrlHolder;
+import com.megaproject.model.Book;
 import com.megaproject.model.User;
 import com.megaproject.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/library-service/lib")
 public class LibraryController {
 
     @Autowired
+    @Resource(name = "${api.version}")
     private LibraryService libraryService;
 
-    @Autowired
-    UrlHolder esbHolder;
-
-
     @GetMapping
-    public User login(@PathVariable Long id){
-        Map< String, String > params = new HashMap<>();
-        params.put("user_id", id.toString());
-        RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject(esbHolder.userId, User.class, params);
-        return user;
+    public ResponseEntity<User> login(@PathVariable Long id){
+        return ResponseEntity.ok().body(libraryService.getUser(id));
     }
 
     @GetMapping(value = "/books")
-    public Book getAllBooks(){
-        RestTemplate restTemplate = new RestTemplate();
-        Book book = restTemplate.getForObject(esbHolder.bookUrl, Book.class);
-
-        return book;
+    public ResponseEntity<List<Book>> getAllBooks(){
+        return ResponseEntity.ok().body(libraryService.getBooks());
     }
 
     @GetMapping(value = "/books/{book_id}")
-    public Book getBook(@PathVariable(value = "book_id") Long id){
-        Map< String, String > params = new HashMap<>();
-        params.put("book_id", id.toString());
-        RestTemplate restTemplate = new RestTemplate();
-        Book book = restTemplate.getForObject(esbHolder.bookId, Book.class, params);
-        return book;
+    public ResponseEntity<Book> getBook(@PathVariable(value = "book_id") Long id){
+        return ResponseEntity.ok().body(libraryService.getBook(id));
     }
 
     @PostMapping(value = "/books/{book_id}")
-    public Book addBook(@RequestBody Book book){
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(esbHolder.bookUrl, book,Book.class).getBody();
+    public ResponseEntity<Book> addBook(@RequestBody Book book){
+        return ResponseEntity.ok().body(libraryService.addBook(book));
     }
 
     @DeleteMapping(value = "/books/{book_id}")
-    public void removeBook(@PathVariable(value = "book_id") Long id) {
-        Map< String, String > params = new HashMap<>();
-        params.put("user_id", id.toString());
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(esbHolder.bookId,params);
+    public ResponseEntity<Object> removeBook(@PathVariable(value = "book_id") Long id) {
+        libraryService.removeBook(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/users")
-    public User getAllUsers(){
-        RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject(esbHolder.userUrl, User.class);
-        return user;
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok().body(libraryService.getUsers());
     }
 
     @GetMapping(value = "/users/{user_id}")
-    public User getUser(@PathVariable(value = "user_id") Long id){
-        Map< String, String > params = new HashMap<>();
-        params.put("user_id", id.toString());
-        RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject(esbHolder.userId, User.class, params);
-        return user;
+    public ResponseEntity<User> getUser(@PathVariable(value = "user_id") Long id){
+        return ResponseEntity.ok().body(libraryService.getUser(id));
     }
 
     @PostMapping(value = "/users")
-    public User addUser(@RequestBody User user){
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(esbHolder.bookUrl, user,User.class).getBody();
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        return ResponseEntity.ok().body(libraryService.addUser(user));
     }
     @DeleteMapping(value = "/users/{user_id}")
-    public void removeUser(@PathVariable(value = "user_id") Long id) {
-        Map< String, String > params = new HashMap<>();
-        params.put("user_id", id.toString());
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(esbHolder.userId,params);
+    public ResponseEntity<Object> removeUser(@PathVariable(value = "user_id") Long id) {
+        libraryService.removeUser(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/users/{user_id}")
-    public void updateUser(@RequestBody User user){
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(esbHolder.userUrl,user,User.class);
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        return ResponseEntity.ok().body(libraryService.updateUser(user));
     }
 
     @PutMapping(value = "/users/{user_id}/books/{book_id}")
@@ -104,5 +76,4 @@ public class LibraryController {
         libraryService.issueBook(bookId,userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

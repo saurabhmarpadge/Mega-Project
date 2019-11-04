@@ -29,6 +29,4 @@ public class User {
     @Column(name="email")
     private String userEmailId;
 
-    @Column(name="role")
-    private String role;
 }

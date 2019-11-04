@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
                 .age(userRequest.getAge())
                 .userEmailId(userRequest.getUserEmailId())
                 .userName(userRequest.getUserName())
-                .role(userRequest.getRole().toString())
                 .build());
     }
 
@@ -56,7 +55,6 @@ public class UserServiceImpl implements UserService {
         userUpdate.setUserName(userRequest.getUserName());
         userUpdate.setAge(userRequest.getAge());
         userUpdate.setUserEmailId(userRequest.getUserEmailId());
-        userUpdate.setRole(userRequest.getRole().toString());
         return userRepository.save(userUpdate);
     }
 }
