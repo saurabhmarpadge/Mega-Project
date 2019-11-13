@@ -11,8 +11,8 @@ public class UrlHolder {
     public String userId;
 
     UrlHolder(){
-        this.bookUrl = "http://localhost:8180/book-service/books";
-        this.userUrl = "http://localhost:8181/user-service/users";
+        this.bookUrl = "http://book-service/book-service/books";
+        this.userUrl = "http://user-service/user-service/users";
         this.bookId = this.bookUrl+"/{book_id}";
         this.userId = this.userUrl+"/{user_id}";
     }

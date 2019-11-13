@@ -1,18 +1,32 @@
 package com.megaproject.service;
 
 import com.megaproject.entity.Library;
-import com.megaproject.repository.LibraryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.megaproject.model.Book;
+import com.megaproject.model.User;
 
-@Service
-public class LibraryService {
-    @Autowired
-    private LibraryRepository libraryRepository;
+import java.util.List;
 
-    public Library issueBook(Long bookId, Long userId) {
-        Library library = Library.builder().bookId(bookId).userId(userId).build();
-        return libraryRepository.save(library);
-    }
+public interface LibraryService {
 
+	public List<Book> getBooks();
+
+	public Book getBook(Long bookId);
+
+	public Book addBook(Book book);
+
+	public void removeBook(Long bookId);
+
+	public Book updateBook(Book book);
+
+	public List<User> getUsers();
+
+	public User getUser(Long userId);
+
+	public User addUser(User user);
+
+	public void removeUser(Long userId);
+
+	public User updateUser(User user);
+
+	public Library issueBook(Long userId, Long bookId);
 }

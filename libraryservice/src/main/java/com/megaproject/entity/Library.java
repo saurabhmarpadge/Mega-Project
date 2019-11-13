@@ -18,7 +18,7 @@ public class Library {
     @Id
     @Column(name="lib_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long libId;
+    private Long libraryId;
 
     @Column(name="book_id")
     private Long bookId;

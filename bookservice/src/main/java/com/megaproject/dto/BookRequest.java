@@ -8,4 +8,5 @@ public class BookRequest {
     private String bookName;
     private String author;
     private Long isbn;
+    private Double price;
 }
